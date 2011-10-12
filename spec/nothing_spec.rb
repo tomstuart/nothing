@@ -14,8 +14,8 @@ describe Nothing do
     specify { ADD[representation_of 2][representation_of 3].should represent 2 + 3 }
     specify { MULTIPLY[representation_of 2][representation_of 3].should represent 2 * 3 }
     specify { POWER[representation_of 2][representation_of 3].should represent 2 ** 3 }
-    specify { pending { DECREMENT[representation_of 3].should represent 3 - 1 } }
-    specify { pending { SUBTRACT[representation_of 3][representation_of 2].should represent 3 - 2 } }
+    specify { DECREMENT[representation_of 3].should represent 3 - 1 }
+    specify { SUBTRACT[representation_of 3][representation_of 2].should represent 3 - 2 }
 
     context 'with booleans' do
       (0..3).each do |n|

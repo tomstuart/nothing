@@ -12,8 +12,8 @@ module Nothing
   ADD       = -> m { -> n { n[INCREMENT][m] } }
   MULTIPLY  = -> m { -> n { n[ADD[m]][ZERO] } }
   POWER     = -> m { -> n { n[MULTIPLY[m]][ONE] } }
-  # DECREMENT =
-  # SUBTRACT  =
+  DECREMENT = -> n { -> f { -> x { n[-> g { -> h { h[g[f]] } }][-> y { x }][-> y { y }] } } }
+  SUBTRACT  = -> m { -> n { n[DECREMENT][m] } }
 
   # Booleans
 
