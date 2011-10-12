@@ -1,13 +1,14 @@
 module Nothing
   # Natural numbers
 
-  # ZERO  =
-  # ONE   =
-  # TWO   =
-  # THREE =
+  ZERO  = -> f { -> x {       x     } }
+  ONE   = -> f { -> x {     f[x]    } }
+  TWO   = -> f { -> x {   f[f[x]]   } }
+  THREE = -> f { -> x { f[f[f[x]]]  } }
 
-  # TIMES     =
-  # INCREMENT =
+  TIMES     = -> n { -> f { -> x { n[f][x] } } }
+  INCREMENT = -> n { -> f { -> x { f[n[f][x]] } } }
+
   # ADD       =
   # MULTIPLY  =
   # POWER     =

@@ -4,13 +4,13 @@ describe Nothing do
   include Nothing
 
   describe 'natural numbers' do
-    specify { pending { ZERO.should represent 0 } }
-    specify { pending { ONE.should represent 1 } }
-    specify { pending { TWO.should represent 2 } }
-    specify { pending { THREE.should represent 3 } }
+    specify { ZERO.should represent 0 }
+    specify { ONE.should represent 1 }
+    specify { TWO.should represent 2 }
+    specify { THREE.should represent 3 }
 
-    specify { pending { TIMES[representation_of 3][-> s { s + 'o' }]['hell'].should == 'hellooo' } }
-    specify { pending { INCREMENT[representation_of 2].should represent 2 + 1 } }
+    specify { TIMES[representation_of 3][-> s { s + 'o' }]['hell'].should == 'hellooo' }
+    specify { INCREMENT[representation_of 2].should represent 2 + 1 }
     specify { pending { ADD[representation_of 2][representation_of 3].should represent 2 + 3 } }
     specify { pending { MULTIPLY[representation_of 2][representation_of 3].should represent 2 * 3 } }
     specify { pending { POWER[representation_of 2][representation_of 3].should represent 2 ** 3 } }
