@@ -46,14 +46,14 @@ describe Nothing do
   end
 
   describe 'booleans' do
-    specify { pending { TRUE.should represent true } }
-    specify { pending { FALSE.should represent false } }
+    specify { TRUE.should represent true }
+    specify { FALSE.should represent false }
 
     let(:foo) { Object.new }
     let(:bar) { Object.new }
 
     [true, false].each do |b|
-      specify { pending { IF[representation_of b][foo][bar].should equal(if b then foo else bar end) } }
+      specify { IF[representation_of b][foo][bar].should equal(if b then foo else bar end) }
       specify { pending { NOT[representation_of b].should represent !b } }
 
       [true, false].each do |a|

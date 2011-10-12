@@ -17,9 +17,9 @@ module Nothing
 
   # Booleans
 
-  # TRUE  =
-  # FALSE =
-  # IF    =
+  TRUE  = -> x { -> y { x } }
+  FALSE = -> x { -> y { y } }
+  IF    = -> b { -> x { -> y { b[x][y] } } }
 
   # NOT =
   # AND =
