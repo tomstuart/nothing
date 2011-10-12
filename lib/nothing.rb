@@ -27,7 +27,7 @@ module Nothing
 
   # Natural numbers with booleans
 
-  # IS_ZERO           =
+  IS_ZERO           = -> n { n[-> x { FALSE }][TRUE] }
   # IS_LESS_OR_EQUAL  =
   # IS_EQUAL          =
 
