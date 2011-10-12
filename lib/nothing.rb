@@ -28,8 +28,8 @@ module Nothing
   # Natural numbers with booleans
 
   IS_ZERO           = -> n { n[-> x { FALSE }][TRUE] }
-  # IS_LESS_OR_EQUAL  =
-  # IS_EQUAL          =
+  IS_LESS_OR_EQUAL  = -> m { -> n { IS_ZERO[SUBTRACT[m][n]] } }
+  IS_EQUAL          = -> m { -> n { AND[IS_LESS_OR_EQUAL[m][n]][IS_LESS_OR_EQUAL[n][m]] } }
 
   # Natural numbers with recursion
 

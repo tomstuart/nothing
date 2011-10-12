@@ -20,8 +20,8 @@ describe Nothing do
     context 'with booleans' do
       (0..3).each do |n|
         specify { IS_ZERO[representation_of n].should represent n.zero? }
-        specify { pending { IS_LESS_OR_EQUAL[representation_of n][representation_of 2].should represent n <= 2 } }
-        specify { pending { IS_EQUAL[representation_of n][representation_of 2].should represent n == 2 } }
+        specify { IS_LESS_OR_EQUAL[representation_of n][representation_of 2].should represent n <= 2 }
+        specify { IS_EQUAL[representation_of n][representation_of 2].should represent n == 2 }
       end
     end
 
