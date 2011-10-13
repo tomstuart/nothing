@@ -64,13 +64,13 @@ describe Nothing do
   end
 
   describe 'pairs' do
-    specify { pending { PAIR[representation_of 3][representation_of 5].should represent Pair.new(3, 5) } }
+    specify { PAIR[representation_of 3][representation_of 5].should represent Pair.new(3, 5) }
 
     let(:foo) { Object.new }
     let(:bar) { Object.new }
 
-    specify { pending { LEFT[PAIR[foo][bar]].should equal(foo) } }
-    specify { pending { RIGHT[PAIR[foo][bar]].should equal(bar) } }
+    specify { LEFT[PAIR[foo][bar]].should equal(foo) }
+    specify { RIGHT[PAIR[foo][bar]].should equal(bar) }
   end
 
   describe 'lists' do
