@@ -38,8 +38,7 @@ module Nothing
 
   # Natural numbers with recursion
 
-  FACT      = -> f { -> n { IF[IS_ZERO[n]][ONE][-> _ { MULTIPLY[n][f[f][DECREMENT[n]]][_] }] } }
-  FACTORIAL = FACT[FACT]
+  FACTORIAL = Z[-> f { -> n { IF[IS_ZERO[n]][ONE][-> _ { MULTIPLY[n][f[DECREMENT[n]]][_] }] } }]
   # DIV       =
   # MOD       =
 
