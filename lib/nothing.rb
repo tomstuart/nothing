@@ -50,8 +50,8 @@ module Nothing
 
   # Lists
 
-  # EMPTY     =
-  # UNSHIFT   =
+  EMPTY     = PAIR[TRUE][TRUE]
+  UNSHIFT   = -> l { -> x { PAIR[FALSE][PAIR[x][l]] } }
   # IS_EMPTY  =
   # FIRST     =
   # REST      =
