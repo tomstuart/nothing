@@ -31,6 +31,11 @@ module Nothing
   IS_LESS_OR_EQUAL  = -> m { -> n { IS_ZERO[SUBTRACT[m][n]] } }
   IS_EQUAL          = -> m { -> n { AND[IS_LESS_OR_EQUAL[m][n]][IS_LESS_OR_EQUAL[n][m]] } }
 
+  # Combinators
+
+  Y = -> f { -> x { f[       x[x]     ] }[-> x { f[       x[x]     ] }] } # the famous one, for lazy languages like Haskell
+  Z = -> f { -> x { f[-> _ { x[x][_] }] }[-> x { f[-> _ { x[x][_] }] }] } # eta-expanded Y combinator, for eager languages like Ruby
+
   # Natural numbers with recursion
 
   FACT      = -> f { -> n { IF[IS_ZERO[n]][ONE][-> _ { MULTIPLY[n][f[f][DECREMENT[n]]][_] }] } }
