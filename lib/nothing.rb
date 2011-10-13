@@ -53,7 +53,7 @@ module Nothing
   EMPTY     = PAIR[TRUE][TRUE]
   UNSHIFT   = -> l { -> x { PAIR[FALSE][PAIR[x][l]] } }
   IS_EMPTY  = LEFT
-  # FIRST     =
+  FIRST     = -> l { LEFT[RIGHT[l]] }
   # REST      =
 
   # RANGE   =
