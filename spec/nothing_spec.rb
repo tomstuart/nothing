@@ -75,12 +75,12 @@ describe Nothing do
 
   describe 'lists' do
     specify { EMPTY.should represent [] }
-    specify { pending { UNSHIFT[representation_of [2, 3]][representation_of 1].should represent [1, 2, 3] } }
+    specify { UNSHIFT[representation_of [2, 3]][representation_of 1].should represent [1, 2, 3] }
 
     specify { IS_EMPTY[representation_of []].should represent true }
     specify { IS_EMPTY[representation_of [1]].should represent false }
     specify { FIRST[representation_of [1, 2, 3]].should represent 1 }
-    specify { pending { REST[representation_of [1, 2, 3]].should represent [2, 3] } }
+    specify { REST[representation_of [1, 2, 3]].should represent [2, 3] }
 
     specify { pending { RANGE[representation_of 2][representation_of 8].should represent [2, 3, 4, 5, 6, 7, 8] } }
     specify { pending { SUM[representation_of [2, 2, 3]].should represent 7 } }

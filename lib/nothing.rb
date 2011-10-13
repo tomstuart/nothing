@@ -54,7 +54,7 @@ module Nothing
   UNSHIFT   = -> l { -> x { PAIR[FALSE][PAIR[x][l]] } }
   IS_EMPTY  = LEFT
   FIRST     = -> l { LEFT[RIGHT[l]] }
-  # REST      =
+  REST      = -> l { RIGHT[RIGHT[l]] }
 
   # RANGE   =
   # SUM     =
