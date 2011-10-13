@@ -61,7 +61,7 @@ module Nothing
   RANGE   = Z[-> f { -> m { -> n { IF[IS_LESS_OR_EQUAL[m][n]][-> _ { UNSHIFT[f[INCREMENT[m]][n]][m][_] }][EMPTY] } } }]
   SUM     = -> l { INJECT[l][ZERO][ADD] }
   PRODUCT = -> l { INJECT[l][ONE][MULTIPLY] }
-  # CONCAT  =
+  CONCAT  = Z[-> f { -> k { -> l { IF[IS_EMPTY[k]][l][-> _ { UNSHIFT[f[REST[k]][l]][FIRST[k]][_] }] } } }]
   # PUSH    =
   # REVERSE =
 
