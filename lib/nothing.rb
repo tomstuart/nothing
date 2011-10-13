@@ -62,7 +62,7 @@ module Nothing
   SUM     = -> l { INJECT[l][ZERO][ADD] }
   PRODUCT = -> l { INJECT[l][ONE][MULTIPLY] }
   CONCAT  = Z[-> f { -> k { -> l { IF[IS_EMPTY[k]][l][-> _ { UNSHIFT[f[REST[k]][l]][FIRST[k]][_] }] } } }]
-  # PUSH    =
+  PUSH    = -> l { -> x { CONCAT[l][UNSHIFT[EMPTY][x]] } }
   # REVERSE =
 
   # INCREMENT_ALL =
