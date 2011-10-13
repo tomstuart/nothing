@@ -33,7 +33,9 @@ module Nothing
 
   # Natural numbers with recursion
 
-  # FACTORIAL =
+  # FIXME this loops forever
+  # FIXME referencing a constant before it's been defined is a cheat
+  FACTORIAL = -> n { IF[IS_ZERO[n]][ONE][MULTIPLY[n][FACTORIAL[DECREMENT[n]]]] }
   # DIV       =
   # MOD       =
 
