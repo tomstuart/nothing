@@ -74,11 +74,11 @@ describe Nothing do
   end
 
   describe 'lists' do
-    specify { pending { EMPTY.should represent [] } }
+    specify { EMPTY.should represent [] }
     specify { pending { UNSHIFT[representation_of [2, 3]][representation_of 1].should represent [1, 2, 3] } }
 
-    specify { pending { IS_EMPTY[representation_of []].should represent true } }
-    specify { pending { IS_EMPTY[representation_of [1]].should represent false } }
+    specify { IS_EMPTY[representation_of []].should represent true }
+    specify { IS_EMPTY[representation_of [1]].should represent false }
     specify { pending { FIRST[representation_of [1, 2, 3]].should represent 1 } }
     specify { pending { REST[representation_of [1, 2, 3]].should represent [2, 3] } }
 
