@@ -58,7 +58,7 @@ module Nothing
 
   RANGE   = Z[-> f { -> m { -> n { IF[IS_LESS_OR_EQUAL[m][n]][-> _ { UNSHIFT[f[INCREMENT[m]][n]][m][_] }][EMPTY] } } }]
   SUM     = Z[-> f { -> l { IF[IS_EMPTY[l]][ZERO][-> _ { ADD[FIRST[l]][f[REST[l]]][_] }] } }]
-  # PRODUCT =
+  PRODUCT = Z[-> f { -> l { IF[IS_EMPTY[l]][ONE][-> _ { MULTIPLY[FIRST[l]][f[REST[l]]][_] }] } }]
   # CONCAT  =
   # PUSH    =
   # REVERSE =
