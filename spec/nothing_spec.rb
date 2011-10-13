@@ -83,7 +83,7 @@ describe Nothing do
     specify { REST[representation_of [1, 2, 3]].should represent [2, 3] }
 
     specify { RANGE[representation_of 2][representation_of 8].should represent [2, 3, 4, 5, 6, 7, 8] }
-    specify { pending { SUM[representation_of [2, 2, 3]].should represent 7 } }
+    specify { SUM[representation_of [2, 2, 3]].should represent 7 }
     specify { pending { PRODUCT[representation_of [2, 2, 3]].should represent 12 } }
     specify { pending { CONCAT[representation_of [1, 2]][representation_of [3, 2]].should represent [1, 2, 3, 2] } }
     specify { pending { PUSH[representation_of [1, 2]][representation_of 3].should represent [1, 2, 3] } }

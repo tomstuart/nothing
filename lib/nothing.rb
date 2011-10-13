@@ -57,7 +57,7 @@ module Nothing
   REST      = -> l { RIGHT[RIGHT[l]] }
 
   RANGE   = Z[-> f { -> m { -> n { IF[IS_LESS_OR_EQUAL[m][n]][-> _ { UNSHIFT[f[INCREMENT[m]][n]][m][_] }][EMPTY] } } }]
-  # SUM     =
+  SUM     = Z[-> f { -> l { IF[IS_EMPTY[l]][ZERO][-> _ { ADD[FIRST[l]][f[REST[l]]][_] }] } }]
   # PRODUCT =
   # CONCAT  =
   # PUSH    =
