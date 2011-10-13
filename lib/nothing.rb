@@ -56,9 +56,11 @@ module Nothing
   FIRST     = -> l { LEFT[RIGHT[l]] }
   REST      = -> l { RIGHT[RIGHT[l]] }
 
+  INJECT  = Z[-> f { -> l { -> x { -> g { IF[IS_EMPTY[l]][x][-> _ { f[REST[l]][g[x][FIRST[l]]][g][_] }] } } } }]
+
   RANGE   = Z[-> f { -> m { -> n { IF[IS_LESS_OR_EQUAL[m][n]][-> _ { UNSHIFT[f[INCREMENT[m]][n]][m][_] }][EMPTY] } } }]
-  SUM     = Z[-> f { -> l { IF[IS_EMPTY[l]][ZERO][-> _ { ADD[FIRST[l]][f[REST[l]]][_] }] } }]
-  PRODUCT = Z[-> f { -> l { IF[IS_EMPTY[l]][ONE][-> _ { MULTIPLY[FIRST[l]][f[REST[l]]][_] }] } }]
+  SUM     = -> l { INJECT[l][ZERO][ADD] }
+  PRODUCT = -> l { INJECT[l][ONE][MULTIPLY] }
   # CONCAT  =
   # PUSH    =
   # REVERSE =
