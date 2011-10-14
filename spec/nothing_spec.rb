@@ -89,7 +89,7 @@ describe Nothing do
     specify { PUSH[representation_of [1, 2]][representation_of 3].should represent [1, 2, 3] }
     specify { REVERSE[representation_of [1, 2, 3]].should represent [3, 2, 1] }
 
-    specify { pending { INCREMENT_ALL[representation_of [1, 2, 3]].should represent [2, 3, 4] } }
+    specify { INCREMENT_ALL[representation_of [1, 2, 3]].should represent [2, 3, 4] }
     specify { pending { DOUBLE_ALL[representation_of [1, 2, 3]].should represent [2, 4, 6] } }
   end
 
