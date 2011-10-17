@@ -57,13 +57,14 @@ module Nothing
   REST      = -> l { RIGHT[RIGHT[l]] }
 
   INJECT  = Z[-> f { -> l { -> x { -> g { IF[IS_EMPTY[l]][x][-> _ { f[REST[l]][g[x][FIRST[l]]][g][_] }] } } } }]
+  FOLD    = Z[-> f { -> l { -> x { -> g { IF[IS_EMPTY[l]][x][-> _ { g[f[REST[l]][x][g]][FIRST[l]][_] }] } } } }]
 
   RANGE   = Z[-> f { -> m { -> n { IF[IS_LESS_OR_EQUAL[m][n]][-> _ { UNSHIFT[f[INCREMENT[m]][n]][m][_] }][EMPTY] } } }]
   SUM     = -> l { INJECT[l][ZERO][ADD] }
   PRODUCT = -> l { INJECT[l][ONE][MULTIPLY] }
-  CONCAT  = Z[-> f { -> k { -> l { IF[IS_EMPTY[k]][l][-> _ { UNSHIFT[f[REST[k]][l]][FIRST[k]][_] }] } } }]
+  CONCAT  = -> k { -> l { FOLD[k][l][UNSHIFT] } }
   PUSH    = -> l { -> x { CONCAT[l][UNSHIFT[EMPTY][x]] } }
-  REVERSE = Z[-> f { -> l { IF[IS_EMPTY[l]][EMPTY][-> _ { PUSH[f[REST[l]]][FIRST[l]][_] }] } }]
+  REVERSE = -> l { FOLD[l][EMPTY][PUSH] }
 
   # INCREMENT_ALL =
   # DOUBLE_ALL    =
