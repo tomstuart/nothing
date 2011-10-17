@@ -11,9 +11,9 @@ describe Nothing do
 
     specify { TIMES[representation_of 3][-> s { s + 'o' }]['hell'].should == 'hellooo' }
     specify { INCREMENT[representation_of 2].should represent 2 + 1 }
-    specify { pending { ADD[representation_of 2][representation_of 3].should represent 2 + 3 } }
-    specify { pending { MULTIPLY[representation_of 2][representation_of 3].should represent 2 * 3 } }
-    specify { pending { POWER[representation_of 2][representation_of 3].should represent 2 ** 3 } }
+    specify { ADD[representation_of 2][representation_of 3].should represent 2 + 3 }
+    specify { MULTIPLY[representation_of 2][representation_of 3].should represent 2 * 3 }
+    specify { POWER[representation_of 2][representation_of 3].should represent 2 ** 3 }
     specify { pending { DECREMENT[representation_of 3].should represent 3 - 1 } }
     specify { pending { SUBTRACT[representation_of 3][representation_of 2].should represent 3 - 2 } }
 

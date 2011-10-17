@@ -9,9 +9,9 @@ module Nothing
   TIMES     = -> n { -> f { -> x { n[f][x] } } }
   INCREMENT = -> n { -> f { -> x { f[n[f][x]] } } }
 
-  # ADD       =
-  # MULTIPLY  =
-  # POWER     =
+  ADD       = -> m { -> n { n[INCREMENT][m] } }
+  MULTIPLY  = -> m { -> n { n[ADD[m]][ZERO] } }
+  POWER     = -> m { -> n { n[MULTIPLY[m]][ONE] } }
   # DECREMENT =
   # SUBTRACT  =
 
