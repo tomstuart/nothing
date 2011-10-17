@@ -54,11 +54,11 @@ describe Nothing do
 
     [true, false].each do |b|
       specify { IF[representation_of b][foo][bar].should equal(if b then foo else bar end) }
-      specify { pending { NOT[representation_of b].should represent !b } }
+      specify { NOT[representation_of b].should represent !b }
 
       [true, false].each do |a|
-        specify { pending { AND[representation_of a][representation_of b].should represent a && b } }
-        specify { pending { OR[representation_of a][representation_of b].should represent a || b } }
+        specify { AND[representation_of a][representation_of b].should represent a && b }
+        specify { OR[representation_of a][representation_of b].should represent a || b }
       end
     end
   end
