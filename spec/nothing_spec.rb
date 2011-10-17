@@ -27,7 +27,7 @@ describe Nothing do
 
     context 'with recursion' do
       (0..5).zip([1, 1, 2, 6, 24, 120]) do |n, n_factorial|
-        specify { pending { FACTORIAL[representation_of n].should represent n_factorial } }
+        specify { FACTORIAL[representation_of n].should represent n_factorial }
       end
 
       [0, 1, 11, 27].product([1, 3, 11]) do |m, n|
