@@ -67,7 +67,7 @@ module Nothing
   REVERSE = -> l { FOLD[l][EMPTY][PUSH] }
 
   INCREMENT_ALL = -> k { FOLD[k][EMPTY][-> l { -> n { UNSHIFT[l][INCREMENT[n]] } }] }
-  # DOUBLE_ALL    =
+  DOUBLE_ALL    = -> k { FOLD[k][EMPTY][-> l { -> n { UNSHIFT[l][MULTIPLY[TWO][n]] } }] }
 
   # Natural numbers with lists
 
