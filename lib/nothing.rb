@@ -57,7 +57,7 @@ module Nothing
   REST      = -> l { RIGHT[RIGHT[l]] }
 
   INJECT  = Z[-> f { -> g { -> x { -> l { IF[IS_EMPTY[l]][x][-> _ { f[g][g[FIRST[l]][x]][REST[l]][_] }] } } } }]
-  FOLD    = Z[-> f { -> g { -> x { -> l { IF[IS_EMPTY[l]][x][-> _ { g[f[g][x][REST[l]]][FIRST[l]][_] }] } } } }]
+  FOLD    = -> g { -> x { Z[-> f { -> l { IF[IS_EMPTY[l]][x][-> _ { g[f[REST[l]]][FIRST[l]][_] }] } }] } }
   MAP     = -> k { -> f { FOLD[-> l { -> x { UNSHIFT[f[x]][l] } }][EMPTY][k] } }
 
   RANGE   = Z[-> f { -> m { -> n { IF[IS_LESS_OR_EQUAL[m][n]][-> _ { UNSHIFT[m][f[INCREMENT[m]][n]][_] }][EMPTY] } } }]
