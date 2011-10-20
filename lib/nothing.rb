@@ -58,7 +58,7 @@ module Nothing
 
   INJECT  = Z[-> f { -> g { -> x { -> l { IF[IS_EMPTY[l]][x][-> _ { f[g][g[FIRST[l]][x]][REST[l]][_] }] } } } }]
   FOLD    = -> g { -> x { Z[-> f { -> l { IF[IS_EMPTY[l]][x][-> _ { g[FIRST[l]][f[REST[l]]][_] }] } }] } }
-  MAP     = -> l { -> f { FOLD[-> x { UNSHIFT[f[x]] }][EMPTY][l] } }
+  MAP     = -> f { -> l { FOLD[-> x { UNSHIFT[f[x]] }][EMPTY][l] } }
 
   RANGE   = Z[-> f { -> m { -> n { IF[IS_LESS_OR_EQUAL[m][n]][-> _ { UNSHIFT[m][f[INCREMENT[m]][n]][_] }][EMPTY] } } }]
   SUM     = INJECT[ADD][ZERO]
@@ -67,8 +67,8 @@ module Nothing
   PUSH    = -> l { -> x { CONCAT[l][UNSHIFT[x][EMPTY]] } }
   REVERSE = FOLD[-> x { -> l { PUSH[l][x] } }][EMPTY]
 
-  INCREMENT_ALL = -> l { MAP[l][INCREMENT] }
-  DOUBLE_ALL    = -> l { MAP[l][MULTIPLY[TWO]] }
+  INCREMENT_ALL = -> l { MAP[INCREMENT][l] }
+  DOUBLE_ALL    = -> l { MAP[MULTIPLY[TWO]][l] }
 
   # Natural numbers with lists
 
@@ -76,18 +76,18 @@ module Nothing
   RADIX     = TEN
   TO_DIGITS = Z[-> f { -> n { PUSH[IF[IS_LESS_OR_EQUAL[n][DECREMENT[RADIX]]][EMPTY][ -> _ { f[DIV[n][RADIX]][_] } ]][MOD[n][RADIX]] } }]
   TO_CHAR   = -> n { n } # assume string encoding where 0 encodes '0', 1 encodes '1' etc
-  TO_STRING = -> n { MAP[TO_DIGITS[n]][TO_CHAR] }
+  TO_STRING = -> n { MAP[TO_CHAR][TO_DIGITS[n]] }
 
   # FizzBuzz
 
   FOUR    = INCREMENT[THREE]
   FIVE    = INCREMENT[FOUR]
   FIFTEEN = MULTIPLY[THREE][FIVE]
-  FIZZ    = MAP[UNSHIFT[ONE][UNSHIFT[TWO][UNSHIFT[FOUR][UNSHIFT[FOUR][EMPTY]]]]][ADD[RADIX]]
-  BUZZ    = MAP[UNSHIFT[ZERO][UNSHIFT[THREE][UNSHIFT[FOUR][UNSHIFT[FOUR][EMPTY]]]]][ADD[RADIX]]
+  FIZZ    = MAP[ADD[RADIX]][UNSHIFT[ONE][UNSHIFT[TWO][UNSHIFT[FOUR][UNSHIFT[FOUR][EMPTY]]]]]
+  BUZZ    = MAP[ADD[RADIX]][UNSHIFT[ZERO][UNSHIFT[THREE][UNSHIFT[FOUR][UNSHIFT[FOUR][EMPTY]]]]]
 
   FIZZBUZZ =
-    -> m { MAP[RANGE[ONE][m]][-> n {
+    -> m { MAP[-> n {
       IF[IS_ZERO[MOD[n][FIFTEEN]]][
         CONCAT[FIZZ][BUZZ]
       ][IF[IS_ZERO[MOD[n][THREE]]][
@@ -97,5 +97,5 @@ module Nothing
       ][
         TO_STRING[n]
       ]]]
-    }] }
+    }][RANGE[ONE][m]] }
 end
