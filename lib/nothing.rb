@@ -58,7 +58,7 @@ module Nothing
 
   INJECT  = Z[-> f { -> g { -> x { -> l { IF[IS_EMPTY[l]][x][-> _ { f[g][g[FIRST[l]][x]][REST[l]][_] }] } } } }]
   FOLD    = -> g { -> x { Z[-> f { -> l { IF[IS_EMPTY[l]][x][-> _ { g[FIRST[l]][f[REST[l]]][_] }] } }] } }
-  MAP     = -> f { -> l { FOLD[-> x { UNSHIFT[f[x]] }][EMPTY][l] } }
+  MAP     = -> f { FOLD[-> x { UNSHIFT[f[x]] }][EMPTY] }
 
   RANGE   = Z[-> f { -> m { -> n { IF[IS_LESS_OR_EQUAL[m][n]][-> _ { UNSHIFT[m][f[INCREMENT[m]][n]][_] }][EMPTY] } } }]
   SUM     = INJECT[ADD][ZERO]
@@ -67,8 +67,8 @@ module Nothing
   PUSH    = -> l { -> x { CONCAT[l][UNSHIFT[x][EMPTY]] } }
   REVERSE = FOLD[-> x { -> l { PUSH[l][x] } }][EMPTY]
 
-  INCREMENT_ALL = -> l { MAP[INCREMENT][l] }
-  DOUBLE_ALL    = -> l { MAP[MULTIPLY[TWO]][l] }
+  INCREMENT_ALL = MAP[INCREMENT]
+  DOUBLE_ALL    = MAP[MULTIPLY[TWO]]
 
   # Natural numbers with lists
 
