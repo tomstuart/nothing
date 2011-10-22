@@ -72,7 +72,9 @@ module Nothing
 
   # Natural numbers with lists
 
-  # TO_DIGITS =
+  TEN       = INCREMENT[MULTIPLY[THREE][THREE]]
+  RADIX     = TEN
+  TO_DIGITS = Z[-> f { -> n { PUSH[IF[IS_LESS_OR_EQUAL[n][DECREMENT[RADIX]]][EMPTY][ -> _ { f[DIV[n][RADIX]][_] } ]][MOD[n][RADIX]] } }]
   # TO_STRING =
 
   # FizzBuzz

@@ -37,7 +37,7 @@ describe Nothing do
     end
 
     context 'with lists' do
-      specify { pending { TO_DIGITS[representation_of 42].should represent [4, 2] } }
+      specify { TO_DIGITS[representation_of 42].should represent [4, 2] }
     end
 
     context 'with strings' do
