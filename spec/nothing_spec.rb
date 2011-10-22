@@ -41,7 +41,7 @@ describe Nothing do
     end
 
     context 'with strings' do
-      specify { pending { TO_STRING[representation_of 42].should represent '42' } }
+      specify { TO_STRING[representation_of 42].should represent '42' }
     end
   end
 

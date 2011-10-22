@@ -75,7 +75,8 @@ module Nothing
   TEN       = INCREMENT[MULTIPLY[THREE][THREE]]
   RADIX     = TEN
   TO_DIGITS = Z[-> f { -> n { PUSH[IF[IS_LESS_OR_EQUAL[n][DECREMENT[RADIX]]][EMPTY][ -> _ { f[DIV[n][RADIX]][_] } ]][MOD[n][RADIX]] } }]
-  # TO_STRING =
+  TO_CHAR   = -> n { n } # assume string encoding where 0 encodes '0', 1 encodes '1' etc
+  TO_STRING = -> n { MAP[TO_DIGITS[n]][TO_CHAR] }
 
   # FizzBuzz
 
