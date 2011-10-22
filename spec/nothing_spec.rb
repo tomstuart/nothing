@@ -98,6 +98,6 @@ describe Nothing do
       (1..m).map { |n| (n % 15).zero? ? 'FizzBuzz' : (n % 3).zero? ? 'Fizz' : (n % 5).zero? ? 'Buzz' : n.to_s }
     end
 
-    specify { pending { FIZZBUZZ[representation_of 30].should represent fizzbuzz(30) } }
+    specify { FIZZBUZZ[representation_of 30].should represent fizzbuzz(30) }
   end
 end

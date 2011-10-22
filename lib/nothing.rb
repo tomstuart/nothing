@@ -80,5 +80,22 @@ module Nothing
 
   # FizzBuzz
 
-  # FIZZBUZZ =
+  FOUR    = INCREMENT[THREE]
+  FIVE    = INCREMENT[FOUR]
+  FIFTEEN = MULTIPLY[THREE][FIVE]
+  FIZZ    = MAP[UNSHIFT[UNSHIFT[UNSHIFT[UNSHIFT[EMPTY][FOUR]][FOUR]][TWO]][ONE]][ADD[RADIX]]
+  BUZZ    = MAP[UNSHIFT[UNSHIFT[UNSHIFT[UNSHIFT[EMPTY][FOUR]][FOUR]][THREE]][ZERO]][ADD[RADIX]]
+
+  FIZZBUZZ =
+    -> m { MAP[RANGE[ONE][m]][-> n {
+      IF[IS_ZERO[MOD[n][FIFTEEN]]][
+        CONCAT[FIZZ][BUZZ]
+      ][IF[IS_ZERO[MOD[n][THREE]]][
+        FIZZ
+      ][IF[IS_ZERO[MOD[n][FIVE]]][
+        BUZZ
+      ][
+        TO_STRING[n]
+      ]]]
+    }] }
 end
