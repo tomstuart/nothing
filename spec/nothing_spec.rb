@@ -31,7 +31,7 @@ describe Nothing do
       end
 
       [0, 1, 11, 27].product([1, 3, 11]) do |m, n|
-        specify { pending { DIV[representation_of m][representation_of n].should represent m / n } }
+        specify { DIV[representation_of m][representation_of n].should represent m / n }
         specify { pending { MOD[representation_of m][representation_of n].should represent m % n } }
       end
     end
