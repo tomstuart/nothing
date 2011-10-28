@@ -6,14 +6,14 @@ module Nothing
   TWO   = -> f { -> x {   f[f[x]]   } }
   THREE = -> f { -> x { f[f[f[x]]]  } }
 
-  TIMES     = -> n { -> f { -> x { n[f][x] } } }
-  INCREMENT = -> n { -> f { -> x { f[n[f][x]] } } }
+  TIMES = -> n { -> f { -> x { n[f][x] } } }
+  SUCC  = -> n { -> f { -> x { f[n[f][x]] } } }
 
   ADD       = -> m { -> n { -> f { -> x { m[f][n[f][x]] } } } }
   MULTIPLY  = -> m { -> n { -> f { m[n[f]] } } }
   POWER     = -> m { -> n { n[m] } }
-  DECREMENT = -> n { -> f { -> x { n[-> g { -> h { h[g[f]] } }][-> y { x }][-> y { y }] } } }
-  SUBTRACT  = -> m { -> n { n[DECREMENT][m] } }
+  PRED      = -> n { -> f { -> x { n[-> g { -> h { h[g[f]] } }][-> y { x }][-> y { y }] } } }
+  SUBTRACT  = -> m { -> n { n[PRED][m] } }
 
   # Booleans
 
@@ -38,58 +38,58 @@ module Nothing
 
   # Natural numbers with recursion
 
-  FACTORIAL = Z[-> f { -> n { IF[IS_ZERO[n]][ONE][-> _ { MULTIPLY[n][f[DECREMENT[n]]][_] }] } }]
-  DIV       = Z[-> f { -> m { -> n { IF[IS_LESS_OR_EQUAL[n][m]][-> _ { INCREMENT[f[SUBTRACT[m][n]][n]][_] }][ZERO] } } }]
+  FACTORIAL = Z[-> f { -> n { IF[IS_ZERO[n]][ONE][-> _ { MULTIPLY[n][f[PRED[n]]][_] }] } }]
+  DIV       = Z[-> f { -> m { -> n { IF[IS_LESS_OR_EQUAL[n][m]][-> _ { SUCC[f[SUBTRACT[m][n]][n]][_] }][ZERO] } } }]
   MOD       = Z[-> f { -> m { -> n { IF[IS_LESS_OR_EQUAL[n][m]][-> _ { f[SUBTRACT[m][n]][n][_] }][m] } } }]
 
   # Pairs
 
-  PAIR  = -> x { -> y { -> f { f[x][y] } } }
-  LEFT  = -> p { p[-> x { -> y { x } } ] }
-  RIGHT = -> p { p[-> x { -> y { y } } ] }
+  PAIR    = -> x { -> y { -> f { f[x][y] } } }
+  FIRST   = -> p { p[-> x { -> y { x } } ] }
+  SECOND  = -> p { p[-> x { -> y { y } } ] }
 
   # Lists
 
-  EMPTY     = -> f { -> x { x } }
-  UNSHIFT   = -> x { -> l { -> f { -> y { f[x][l[f][y]] } } } }
-  IS_EMPTY  = -> k { k[-> x { -> l { FALSE }}][TRUE] }
-  FIRST     = -> k { k[-> x { -> l { x } }][EMPTY] }
-  REST      = -> l { LEFT[l[-> x { -> p { PAIR[RIGHT[p]][UNSHIFT[x][RIGHT[p]]] } }][PAIR[EMPTY][EMPTY]]] }
+  NIL     = -> f { -> x { x } }
+  CONS    = -> x { -> l { -> f { -> y { f[x][l[f][y]] } } } }
+  IS_NIL  = -> k { k[-> x { -> l { FALSE }}][TRUE] }
+  HEAD    = -> k { k[-> x { -> l { x } }][NIL] }
+  TAIL    = -> l { FIRST[l[-> x { -> p { PAIR[SECOND[p]][CONS[x][SECOND[p]]] } }][PAIR[NIL][NIL]]] }
 
-  INJECT  = Z[-> f { -> g { -> x { -> l { IF[IS_EMPTY[l]][x][-> _ { f[g][g[FIRST[l]][x]][REST[l]][_] }] } } } }]
-  FOLD    = -> f { -> x { -> l { l[f][x] } } }
-  MAP     = -> f { FOLD[-> x { UNSHIFT[f[x]] }][EMPTY] }
+  FOLD_LEFT   = Z[-> f { -> g { -> x { -> l { IF[IS_NIL[l]][x][-> _ { f[g][g[HEAD[l]][x]][TAIL[l]][_] }] } } } }]
+  FOLD_RIGHT  = -> f { -> x { -> l { l[f][x] } } }
+  MAP         = -> f { FOLD_RIGHT[-> x { CONS[f[x]] }][NIL] }
 
-  RANGE   = Z[-> f { -> m { -> n { IF[IS_LESS_OR_EQUAL[m][n]][-> _ { UNSHIFT[m][f[INCREMENT[m]][n]][_] }][EMPTY] } } }]
-  SUM     = INJECT[ADD][ZERO]
-  PRODUCT = INJECT[MULTIPLY][ONE]
-  CONCAT  = -> k { -> l { FOLD[UNSHIFT][l][k] } }
-  PUSH    = -> x { -> l { CONCAT[l][UNSHIFT[x][EMPTY]] } }
-  REVERSE = FOLD[PUSH][EMPTY]
+  RANGE   = Z[-> f { -> m { -> n { IF[IS_LESS_OR_EQUAL[m][n]][-> _ { CONS[m][f[SUCC[m]][n]][_] }][NIL] } } }]
+  SUM     = FOLD_LEFT[ADD][ZERO]
+  PRODUCT = FOLD_LEFT[MULTIPLY][ONE]
+  APPEND  = -> k { -> l { FOLD_RIGHT[CONS][l][k] } }
+  PUSH    = -> x { -> l { APPEND[l][CONS[x][NIL]] } }
+  REVERSE = FOLD_RIGHT[PUSH][NIL]
 
-  INCREMENT_ALL = MAP[INCREMENT]
+  INCREMENT_ALL = MAP[SUCC]
   DOUBLE_ALL    = MAP[MULTIPLY[TWO]]
 
   # Natural numbers with lists
 
-  TEN       = INCREMENT[MULTIPLY[THREE][THREE]]
+  TEN       = SUCC[MULTIPLY[THREE][THREE]]
   RADIX     = TEN
-  TO_DIGITS = Z[-> f { -> n { PUSH[MOD[n][RADIX]][IF[IS_LESS_OR_EQUAL[n][DECREMENT[RADIX]]][EMPTY][ -> _ { f[DIV[n][RADIX]][_] } ]] } }]
+  TO_DIGITS = Z[-> f { -> n { PUSH[MOD[n][RADIX]][IF[IS_LESS_OR_EQUAL[n][PRED[RADIX]]][NIL][ -> _ { f[DIV[n][RADIX]][_] } ]] } }]
   TO_CHAR   = -> n { n } # assume string encoding where 0 encodes '0', 1 encodes '1' etc
   TO_STRING = -> n { MAP[TO_CHAR][TO_DIGITS[n]] }
 
   # FizzBuzz
 
-  FOUR    = INCREMENT[THREE]
-  FIVE    = INCREMENT[FOUR]
+  FOUR    = SUCC[THREE]
+  FIVE    = SUCC[FOUR]
   FIFTEEN = MULTIPLY[THREE][FIVE]
-  FIZZ    = MAP[ADD[RADIX]][UNSHIFT[ONE][UNSHIFT[TWO][UNSHIFT[FOUR][UNSHIFT[FOUR][EMPTY]]]]]
-  BUZZ    = MAP[ADD[RADIX]][UNSHIFT[ZERO][UNSHIFT[THREE][UNSHIFT[FOUR][UNSHIFT[FOUR][EMPTY]]]]]
+  FIZZ    = MAP[ADD[RADIX]][CONS[ONE][CONS[TWO][CONS[FOUR][CONS[FOUR][NIL]]]]]
+  BUZZ    = MAP[ADD[RADIX]][CONS[ZERO][CONS[THREE][CONS[FOUR][CONS[FOUR][NIL]]]]]
 
   FIZZBUZZ =
     -> m { MAP[-> n {
       IF[IS_ZERO[MOD[n][FIFTEEN]]][
-        CONCAT[FIZZ][BUZZ]
+        APPEND[FIZZ][BUZZ]
       ][IF[IS_ZERO[MOD[n][THREE]]][
         FIZZ
       ][IF[IS_ZERO[MOD[n][FIVE]]][

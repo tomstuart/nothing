@@ -11,7 +11,7 @@ module Nothing
       n = ZERO
 
       integer.times do
-        n = INCREMENT[n]
+        n = SUCC[n]
       end
 
       n
@@ -26,7 +26,7 @@ module Nothing
     end
 
     def to_pair(p)
-      Pair.new(LEFT[p], RIGHT[p])
+      Pair.new(FIRST[p], SECOND[p])
     end
 
     def from_pair(pair)
@@ -36,19 +36,19 @@ module Nothing
     def to_array(l)
       array = []
 
-      until to_boolean(IS_EMPTY[l])
-        array.push(FIRST[l])
-        l = REST[l]
+      until to_boolean(IS_NIL[l])
+        array.push(HEAD[l])
+        l = TAIL[l]
       end
 
       array
     end
 
     def from_array(array)
-      l = EMPTY
+      l = NIL
 
       until array.empty?
-        l = UNSHIFT[array.last][l]
+        l = CONS[array.last][l]
         array.pop
       end
 

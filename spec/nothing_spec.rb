@@ -10,11 +10,11 @@ describe Nothing do
     specify { THREE.should represent 3 }
 
     specify { TIMES[representation_of 3][-> s { s + 'o' }]['hell'].should == 'hellooo' }
-    specify { INCREMENT[representation_of 2].should represent 2 + 1 }
+    specify { SUCC[representation_of 2].should represent 2 + 1 }
     specify { ADD[representation_of 2][representation_of 3].should represent 2 + 3 }
     specify { MULTIPLY[representation_of 2][representation_of 3].should represent 2 * 3 }
     specify { POWER[representation_of 2][representation_of 3].should represent 2 ** 3 }
-    specify { DECREMENT[representation_of 3].should represent 3 - 1 }
+    specify { PRED[representation_of 3].should represent 3 - 1 }
     specify { SUBTRACT[representation_of 3][representation_of 2].should represent 3 - 2 }
 
     context 'with booleans' do
@@ -69,23 +69,23 @@ describe Nothing do
     let(:foo) { Object.new }
     let(:bar) { Object.new }
 
-    specify { LEFT[PAIR[foo][bar]].should equal(foo) }
-    specify { RIGHT[PAIR[foo][bar]].should equal(bar) }
+    specify { FIRST[PAIR[foo][bar]].should equal(foo) }
+    specify { SECOND[PAIR[foo][bar]].should equal(bar) }
   end
 
   describe 'lists' do
-    specify { EMPTY.should represent [] }
-    specify { UNSHIFT[representation_of 1][representation_of [2, 3]].should represent [1, 2, 3] }
+    specify { NIL.should represent [] }
+    specify { CONS[representation_of 1][representation_of [2, 3]].should represent [1, 2, 3] }
 
-    specify { IS_EMPTY[representation_of []].should represent true }
-    specify { IS_EMPTY[representation_of [1]].should represent false }
-    specify { FIRST[representation_of [1, 2, 3]].should represent 1 }
-    specify { REST[representation_of [1, 2, 3]].should represent [2, 3] }
+    specify { IS_NIL[representation_of []].should represent true }
+    specify { IS_NIL[representation_of [1]].should represent false }
+    specify { HEAD[representation_of [1, 2, 3]].should represent 1 }
+    specify { TAIL[representation_of [1, 2, 3]].should represent [2, 3] }
 
     specify { RANGE[representation_of 2][representation_of 8].should represent [2, 3, 4, 5, 6, 7, 8] }
     specify { SUM[representation_of [2, 2, 3]].should represent 7 }
     specify { PRODUCT[representation_of [2, 2, 3]].should represent 12 }
-    specify { CONCAT[representation_of [1, 2]][representation_of [3, 2]].should represent [1, 2, 3, 2] }
+    specify { APPEND[representation_of [1, 2]][representation_of [3, 2]].should represent [1, 2, 3, 2] }
     specify { PUSH[representation_of 3][representation_of [1, 2]].should represent [1, 2, 3] }
     specify { REVERSE[representation_of [1, 2, 3]].should represent [3, 2, 1] }
 
