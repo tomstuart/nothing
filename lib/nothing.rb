@@ -50,11 +50,11 @@ module Nothing
 
   # Lists
 
-  EMPTY     = PAIR[TRUE][TRUE]
-  UNSHIFT   = -> x { -> l { PAIR[FALSE][PAIR[x][l]] } }
-  IS_EMPTY  = LEFT
-  FIRST     = -> l { LEFT[RIGHT[l]] }
-  REST      = -> l { RIGHT[RIGHT[l]] }
+  EMPTY     = -> f { -> x { x } }
+  UNSHIFT   = -> x { -> l { -> f { -> y { f[x][l[f][y]] } } } }
+  IS_EMPTY  = -> k { k[-> x { -> l { FALSE }}][TRUE] }
+  FIRST     = -> k { k[-> x { -> l { x } }][EMPTY] }
+  REST      = -> l { LEFT[l[-> x { -> p { PAIR[RIGHT[p]][UNSHIFT[x][RIGHT[p]]] } }][PAIR[EMPTY][EMPTY]]] }
 
   INJECT  = Z[-> f { -> g { -> x { -> l { IF[IS_EMPTY[l]][x][-> _ { f[g][g[FIRST[l]][x]][REST[l]][_] }] } } } }]
   FOLD    = -> g { -> x { Z[-> f { -> l { IF[IS_EMPTY[l]][x][-> _ { g[FIRST[l]][f[REST[l]]][_] }] } }] } }
