@@ -58,12 +58,12 @@ module Nothing
 
   INJECT  = Z[-> f { -> g { -> x { -> l { IF[IS_EMPTY[l]][x][-> _ { f[g][g[FIRST[l]][x]][REST[l]][_] }] } } } }]
   FOLD    = -> g { -> x { Z[-> f { -> l { IF[IS_EMPTY[l]][x][-> _ { g[FIRST[l]][f[REST[l]]][_] }] } }] } }
-  MAP     = -> k { -> f { FOLD[-> x { -> l { UNSHIFT[f[x]][l] } }][EMPTY][k] } }
+  MAP     = -> l { -> f { FOLD[-> x { UNSHIFT[f[x]] }][EMPTY][l] } }
 
   RANGE   = Z[-> f { -> m { -> n { IF[IS_LESS_OR_EQUAL[m][n]][-> _ { UNSHIFT[m][f[INCREMENT[m]][n]][_] }][EMPTY] } } }]
   SUM     = INJECT[ADD][ZERO]
   PRODUCT = INJECT[MULTIPLY][ONE]
-  CONCAT  = -> j { -> k { FOLD[-> x { -> l { UNSHIFT[x][l] } }][k][j] } }
+  CONCAT  = -> k { -> l { FOLD[UNSHIFT][l][k] } }
   PUSH    = -> l { -> x { CONCAT[l][UNSHIFT[x][EMPTY]] } }
   REVERSE = FOLD[-> x { -> l { PUSH[l][x] } }][EMPTY]
 
