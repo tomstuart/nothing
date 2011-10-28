@@ -65,7 +65,7 @@ module Nothing
   PRODUCT = INJECT[MULTIPLY][ONE]
   CONCAT  = -> j { -> k { FOLD[-> l { -> x { UNSHIFT[x][l] } }][k][j] } }
   PUSH    = -> l { -> x { CONCAT[l][UNSHIFT[x][EMPTY]] } }
-  REVERSE = -> l { FOLD[PUSH][EMPTY][l] }
+  REVERSE = FOLD[PUSH][EMPTY]
 
   INCREMENT_ALL = -> l { MAP[l][INCREMENT] }
   DOUBLE_ALL    = -> l { MAP[l][MULTIPLY[TWO]] }
