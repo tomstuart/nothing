@@ -64,8 +64,8 @@ module Nothing
   SUM     = INJECT[ADD][ZERO]
   PRODUCT = INJECT[MULTIPLY][ONE]
   CONCAT  = -> k { -> l { FOLD[UNSHIFT][l][k] } }
-  PUSH    = -> l { -> x { CONCAT[l][UNSHIFT[x][EMPTY]] } }
-  REVERSE = FOLD[-> x { -> l { PUSH[l][x] } }][EMPTY]
+  PUSH    = -> x { -> l { CONCAT[l][UNSHIFT[x][EMPTY]] } }
+  REVERSE = FOLD[-> x { -> l { PUSH[x][l] } }][EMPTY]
 
   INCREMENT_ALL = MAP[INCREMENT]
   DOUBLE_ALL    = MAP[MULTIPLY[TWO]]
@@ -74,7 +74,7 @@ module Nothing
 
   TEN       = INCREMENT[MULTIPLY[THREE][THREE]]
   RADIX     = TEN
-  TO_DIGITS = Z[-> f { -> n { PUSH[IF[IS_LESS_OR_EQUAL[n][DECREMENT[RADIX]]][EMPTY][ -> _ { f[DIV[n][RADIX]][_] } ]][MOD[n][RADIX]] } }]
+  TO_DIGITS = Z[-> f { -> n { PUSH[MOD[n][RADIX]][IF[IS_LESS_OR_EQUAL[n][DECREMENT[RADIX]]][EMPTY][ -> _ { f[DIV[n][RADIX]][_] } ]] } }]
   TO_CHAR   = -> n { n } # assume string encoding where 0 encodes '0', 1 encodes '1' etc
   TO_STRING = -> n { MAP[TO_CHAR][TO_DIGITS[n]] }
 

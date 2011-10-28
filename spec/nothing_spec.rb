@@ -86,7 +86,7 @@ describe Nothing do
     specify { SUM[representation_of [2, 2, 3]].should represent 7 }
     specify { PRODUCT[representation_of [2, 2, 3]].should represent 12 }
     specify { CONCAT[representation_of [1, 2]][representation_of [3, 2]].should represent [1, 2, 3, 2] }
-    specify { PUSH[representation_of [1, 2]][representation_of 3].should represent [1, 2, 3] }
+    specify { PUSH[representation_of 3][representation_of [1, 2]].should represent [1, 2, 3] }
     specify { REVERSE[representation_of [1, 2, 3]].should represent [3, 2, 1] }
 
     specify { INCREMENT_ALL[representation_of [1, 2, 3]].should represent [2, 3, 4] }
