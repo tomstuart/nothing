@@ -75,7 +75,7 @@ describe Nothing do
 
   describe 'lists' do
     specify { EMPTY.should represent [] }
-    specify { UNSHIFT[representation_of [2, 3]][representation_of 1].should represent [1, 2, 3] }
+    specify { UNSHIFT[representation_of 1][representation_of [2, 3]].should represent [1, 2, 3] }
 
     specify { IS_EMPTY[representation_of []].should represent true }
     specify { IS_EMPTY[representation_of [1]].should represent false }

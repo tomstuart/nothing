@@ -51,20 +51,20 @@ module Nothing
   # Lists
 
   EMPTY     = PAIR[TRUE][TRUE]
-  UNSHIFT   = -> l { -> x { PAIR[FALSE][PAIR[x][l]] } }
+  UNSHIFT   = -> x { -> l { PAIR[FALSE][PAIR[x][l]] } }
   IS_EMPTY  = LEFT
   FIRST     = -> l { LEFT[RIGHT[l]] }
   REST      = -> l { RIGHT[RIGHT[l]] }
 
   INJECT  = Z[-> f { -> l { -> x { -> g { IF[IS_EMPTY[l]][x][-> _ { f[REST[l]][g[x][FIRST[l]]][g][_] }] } } } }]
   FOLD    = Z[-> f { -> l { -> x { -> g { IF[IS_EMPTY[l]][x][-> _ { g[f[REST[l]][x][g]][FIRST[l]][_] }] } } } }]
-  MAP     = -> k { -> f { FOLD[k][EMPTY][-> l { -> x { UNSHIFT[l][f[x]] } }] } }
+  MAP     = -> k { -> f { FOLD[k][EMPTY][-> l { -> x { UNSHIFT[f[x]][l] } }] } }
 
-  RANGE   = Z[-> f { -> m { -> n { IF[IS_LESS_OR_EQUAL[m][n]][-> _ { UNSHIFT[f[INCREMENT[m]][n]][m][_] }][EMPTY] } } }]
+  RANGE   = Z[-> f { -> m { -> n { IF[IS_LESS_OR_EQUAL[m][n]][-> _ { UNSHIFT[m][f[INCREMENT[m]][n]][_] }][EMPTY] } } }]
   SUM     = -> l { INJECT[l][ZERO][ADD] }
   PRODUCT = -> l { INJECT[l][ONE][MULTIPLY] }
-  CONCAT  = -> k { -> l { FOLD[k][l][UNSHIFT] } }
-  PUSH    = -> l { -> x { CONCAT[l][UNSHIFT[EMPTY][x]] } }
+  CONCAT  = -> j { -> k { FOLD[j][k][-> l { -> x { UNSHIFT[x][l] } }] } }
+  PUSH    = -> l { -> x { CONCAT[l][UNSHIFT[x][EMPTY]] } }
   REVERSE = -> l { FOLD[l][EMPTY][PUSH] }
 
   INCREMENT_ALL = -> l { MAP[l][INCREMENT] }
@@ -83,8 +83,8 @@ module Nothing
   FOUR    = INCREMENT[THREE]
   FIVE    = INCREMENT[FOUR]
   FIFTEEN = MULTIPLY[THREE][FIVE]
-  FIZZ    = MAP[UNSHIFT[UNSHIFT[UNSHIFT[UNSHIFT[EMPTY][FOUR]][FOUR]][TWO]][ONE]][ADD[RADIX]]
-  BUZZ    = MAP[UNSHIFT[UNSHIFT[UNSHIFT[UNSHIFT[EMPTY][FOUR]][FOUR]][THREE]][ZERO]][ADD[RADIX]]
+  FIZZ    = MAP[UNSHIFT[ONE][UNSHIFT[TWO][UNSHIFT[FOUR][UNSHIFT[FOUR][EMPTY]]]]][ADD[RADIX]]
+  BUZZ    = MAP[UNSHIFT[ZERO][UNSHIFT[THREE][UNSHIFT[FOUR][UNSHIFT[FOUR][EMPTY]]]]][ADD[RADIX]]
 
   FIZZBUZZ =
     -> m { MAP[RANGE[ONE][m]][-> n {

@@ -48,7 +48,7 @@ module Nothing
       l = EMPTY
 
       until array.empty?
-        l = UNSHIFT[l][array.last]
+        l = UNSHIFT[array.last][l]
         array.pop
       end
 
