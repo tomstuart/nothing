@@ -56,7 +56,7 @@ module Nothing
   FIRST     = -> l { LEFT[RIGHT[l]] }
   REST      = -> l { RIGHT[RIGHT[l]] }
 
-  INJECT  = Z[-> f { -> g { -> x { -> l { IF[IS_EMPTY[l]][x][-> _ { f[g][g[x][FIRST[l]]][REST[l]][_] }] } } } }]
+  INJECT  = Z[-> f { -> g { -> x { -> l { IF[IS_EMPTY[l]][x][-> _ { f[g][g[FIRST[l]][x]][REST[l]][_] }] } } } }]
   FOLD    = Z[-> f { -> l { -> x { -> g { IF[IS_EMPTY[l]][x][-> _ { g[f[REST[l]][x][g]][FIRST[l]][_] }] } } } }]
   MAP     = -> k { -> f { FOLD[k][EMPTY][-> l { -> x { UNSHIFT[f[x]][l] } }] } }
 
