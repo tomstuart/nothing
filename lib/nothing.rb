@@ -21,9 +21,9 @@ module Nothing
   FALSE = -> x { -> y { y } }
   IF    = -> b { b }
 
-  NOT = -> b { IF[b][FALSE][TRUE] }
-  AND = -> a { -> b { IF[a][IF[b][TRUE][FALSE]][FALSE] } }
-  OR  = -> a { -> b { IF[a][TRUE][IF[b][TRUE][FALSE]] } }
+  NOT = -> b { -> x { -> y { b[y][x] } } }
+  AND = -> a { -> b { a[b][a] } }
+  OR  = -> a { -> b { a[a][b] } }
 
   # Natural numbers with booleans
 
